@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: chocolates-app
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn chocolates.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: chocolates.settings
+      - key: PYTHON_VERSION
+        value: 3.10

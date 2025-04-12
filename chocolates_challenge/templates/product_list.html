@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+            min-height: 100vh;
+        }
+        .product-title {
+            text-align: center;
+            padding: 30px 0;
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .card {
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 15px;
+        }
+        .btn-cart {
+            background: linear-gradient(to right, #56ccf2, #2f80ed);
+            color: white;
+            border: none;
+        }
+        .btn-cart:hover {
+            background: linear-gradient(to right, #2f80ed, #56ccf2);
+        }
+        .top-btn {
+            text-align: right;
+            padding: 0 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="product-title">This is Product List</h1>
+
+    <div class="top-btn mb-3">
+        <form action="/chocolates/cart/">
+            <button class="btn btn-cart px-4 py-2">Go to Cart</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            {% for item in chocolates_list %}
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <img src="{{ item.image }}" class="card-img-top" alt="{{ item.name }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">Price: ₹{{ item.price }}</p>
+                        <p class="card-text">Rating: {{ item.rating }}</p>
+                        <p class="card-text"><small class="text-muted">{{ item.time }}</small></p>
+                        <form action="/chocolates/handle-product-list/" method="post">
+                            <input type="hidden" name="name" value="{{ item.name }}">
+                            <input type="hidden" name="image" value="{{ item.image }}">
+                            <input type="hidden" name="price" value="{{ item.price }}">
+                            <input type="hidden" name="rating" value="{{ item.rating }}">
+                            <input type="hidden" name="time" value="{{ item.time }}">
+                            <button type="submit" class="btn btn-cart w-100">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
